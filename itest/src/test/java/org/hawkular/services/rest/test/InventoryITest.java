@@ -68,7 +68,6 @@ public class InventoryITest extends AbstractTestBase {
     @Test(dependsOnMethods = { "inventoryUp" })
     @RunAsClient
     public void postGetDelete() throws Throwable {
-
         /* ensure our env not there already */
         final String environmentsPath = inventoryPath + "/environments";
         final String environmentPath = environmentsPath + "/" + testEnvironmentId;

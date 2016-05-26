@@ -16,9 +16,11 @@
  */
 package org.hawkular.services.rest.test;
 
+import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 /*
  * Copyright 2016 Red Hat, Inc. and/or its affiliates
  * and other contributors as indicated by the @author tags.
@@ -39,6 +41,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.hawkular.inventory.json.InventoryJacksonConfig;
 import org.jboss.arquillian.testng.Arquillian;
+import org.testng.annotations.BeforeMethod;
 
 import com.fasterxml.jackson.databind.AnnotationIntrospector;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -60,10 +63,9 @@ public class AbstractTestBase extends Arquillian {
     protected static final OkHttpClient client;
     protected static final String host;
     protected static final ObjectMapper mapper;
-    protected static final String tenantId = System.getProperty("hawkular.itest.rest.tenantId");
-    protected static final TestClient testClient;
     protected static final String testPasword = System.getProperty("hawkular.itest.rest.password");
     protected static final String testUser = System.getProperty("hawkular.itest.rest.user");
+    private static final Random random = new Random();
 
     static {
         authHeader = Credentials.basic(testUser, testPasword);
@@ -90,6 +92,9 @@ public class AbstractTestBase extends Arquillian {
         mapper.setAnnotationIntrospector(introspectorPair);
         InventoryJacksonConfig.configure(mapper);
 
+    }
+
+    public static TestClient newClient(String tenantId) {
         final Map<String, String> defaultHeaders = Collections.unmodifiableMap(new HashMap<String, String>(){/**  */
             private static final long serialVersionUID = 1L;
         {
@@ -97,7 +102,16 @@ public class AbstractTestBase extends Arquillian {
             put("Accept", "application/json");
             put("Hawkular-Tenant", tenantId);
         }});
-        testClient = new TestClient(client, mapper, baseUri, defaultHeaders);
+        return new TestClient(client, mapper, baseUri, defaultHeaders);
+    }
+
+
+    protected TestClient testClient;
+
+    @BeforeMethod
+    public void beforeTest(Method method) {
+        String tenantId = method.getDeclaringClass().getSimpleName() + "." + method.getName() + "." + random.nextInt();
+        this.testClient = newClient(tenantId);
     }
 
 }

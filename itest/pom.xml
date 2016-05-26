@@ -173,7 +173,6 @@
 
         <hawkular.agent.itest.mgmt.user>itest-admin</hawkular.agent.itest.mgmt.user>
         <!-- <hawkular.agent.itest.mgmt.password> set to a random value using gmaven plugin </hawkular.agent.itest.mgmt.password> -->
-        <hawkular.itest.rest.tenantId>itest-rest-tenant</hawkular.itest.rest.tenantId>
         <hawkular.itest.rest.user>itest-rest</hawkular.itest.rest.user>
         <!-- <hawkular.itest.rest.password> set to a random value using gmaven plugin </hawkular.itest.rest.password> -->
 
@@ -339,7 +338,6 @@
                     -Dhawkular.agent.enabled=${hawkular.agent.enabled}
                     -Dhawkular.rest.user=${hawkular.itest.rest.user}
                     -Dhawkular.rest.password=${hawkular.itest.rest.password}
-                    -Dhawkular.rest.tenantId=${hawkular.itest.rest.tenantId}
                     -Dhawkular.log.root=${hawkular.log.root}
                     -Dhawkular.log.console=${hawkular.log.console}
                     -Dhawkular.log.agent=${hawkular.log.agent}
@@ -358,7 +356,6 @@
                 <hawkular.agent.itest.mgmt.user>${hawkular.agent.itest.mgmt.user}</hawkular.agent.itest.mgmt.user>
                 <hawkular.agent.itest.mgmt.password>${hawkular.agent.itest.mgmt.password}</hawkular.agent.itest.mgmt.password>
 
-                <hawkular.itest.rest.tenantId>${hawkular.itest.rest.tenantId}</hawkular.itest.rest.tenantId>
                 <hawkular.itest.rest.user>${hawkular.itest.rest.user}</hawkular.itest.rest.user>
                 <hawkular.itest.rest.password>${hawkular.itest.rest.password}</hawkular.itest.rest.password>
 
